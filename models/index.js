@@ -1,18 +1,16 @@
-const dbConfig = require("../config/db.config.js");
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-   
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
-});
-const db = {};
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-db.pharmacy = require("./pharmacy.model.js")(sequelize, Sequelize);
-module.exports = db;
+const sequelize = require("./sequelize_index").sequelize;
+const Pharmacy = require("./pharmacy.model.js");
+const Product = require("./product.model.js");
+
+Pharmacy.hasMany(Product,{ foreignKey: 'pharmacy_id' ,  onDelete: 'CASCADE'})
+
+Product.belongsTo(Pharmacy,{ foreignKey: 'pharmacy_id',  onDelete: 'CASCADE'});
+
+
+  const models = { };
+  models.pharmacy=Pharmacy ; 
+  models.product =Product ; 
+  models.sequelize = sequelize 
+
+  module.exports = models;
+

@@ -1,31 +1,33 @@
-module.exports = (sequelize, Sequelize) => {
-  const Pharmacy = sequelize.define(
-    "Pharmacy",
-    {
-      id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      name: {
-        type: Sequelize.STRING,
-      },
-      address: {
-        type: Sequelize.STRING,
-      },
-      phoneNumber: {
-        type: Sequelize.STRING,
-      },
-      email: {
-        type: Sequelize.STRING,
-      },
-      password: {
-        type: Sequelize.STRING,
-      },
+const Sequelize = require("sequelize");
+const sequelize = require("./sequelize_index").sequelize;
+
+const Pharmacy = sequelize.define(
+  "Pharmacy",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
-    {
-      freezeTableName: true,
-    }
-  );
-  return Pharmacy;
-};
+    name: {
+      type: Sequelize.STRING,
+    },
+    address: {
+      type: Sequelize.STRING,
+    },
+    phoneNumber: {
+      type: Sequelize.STRING,
+    },
+    email: {
+      type: Sequelize.STRING,
+    },
+    password: {
+      type: Sequelize.STRING,
+    },
+  },
+  {
+    freezeTableName: true,
+  }
+);
+
+module.exports = Pharmacy;
