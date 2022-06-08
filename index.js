@@ -1,8 +1,9 @@
 const express  = require("express")
 const cors = require("cors");
-const { json } = require("express/lib/response");
+
 
 const models = require("./models");
+const auth = require("./routers/auth.route")
 
 const app = express(); 
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({extended:true})); 
 
+app.use('/auth' , auth)
 
 models.sequelize.sync({ force: false }).then(function () {
     console.log("Database Configured");

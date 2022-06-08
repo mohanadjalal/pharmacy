@@ -1,11 +1,8 @@
-const db = require("../models");
-const Tutorial = db.tutorials;
-const Op = db.Sequelize.Op;
+const models = require("../models");
+const Pharmacy = models.pharmacy;
+const Op = models.Sequelize.Op;
 // Create 
-exports.signup = (req, res) => {
 
-};
-exports.signin = (req, res) => {};
 // Retrieve all 
 exports.findAll = (req, res) => {};
 // Find a single  
