@@ -1,9 +1,10 @@
 const router = require('express').Router()
-const {signup} = require('../controllers/auth.controler');
+const {signup , signin} = require('../controllers/auth.controler');
 
 
 
 router.post('/signup' , signup);
+router.post('/signin' , signin);
 
 
 
