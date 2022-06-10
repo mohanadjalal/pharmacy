@@ -19,8 +19,10 @@ exports.signup = async (req, res) => {
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send({ message: err });
+    console.log(err, ":)");
   }
 };
+
 exports.signin = async (req, res) => {
   let user;
   try {
@@ -28,6 +30,8 @@ exports.signin = async (req, res) => {
       user = await Pharmacy.findAll({ where: { email: req.body.email } });
     else user = await Customer.findAll({ where: { email: req.body.email } });
 
+    user = user[0].dataValues;
+    console.log(user);
     if (!user) return res.status(404).send({ message: "user not found!!" });
 
     const passwordIsValid = bcrypt.compareSync(
@@ -41,10 +45,13 @@ exports.signin = async (req, res) => {
         message: "Invalid Password!",
       });
     }
-    const token = jwt.sign({ id: user.id }, config.secret);
+    const token = jwt.sign({ id: user.id }, config.secret, {
+      expiresIn: 86400,
+    });
     user.accessToken = token;
     return res.status(200).send(user);
-  } catch (error) {
-    res.status(500).send({ message: err });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+    console.log(err, ":)");
   }
 };
