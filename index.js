@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const models = require("./models");
 const auth = require("./routers/auth.route");
+const pharmacy = require("./routers/pharmacy.route");
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/auth", auth);
+app.use("/api/auth", auth);
+app.use("/api/pharmacy", pharmacy);
 
 models.sequelize.sync({ force: false }).then(function () {
   console.log("Database Configured");

@@ -1,6 +1,6 @@
-const verifyToken = require("./authJWT");
+const { verifyToken } = require("./authJWT");
 
-module.exports = {
+const mw = {
   verifyToken,
 };
-
+module.exports = mw;
