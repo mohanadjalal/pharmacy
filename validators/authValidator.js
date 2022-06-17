@@ -7,11 +7,9 @@ const checkSingup = (body) => {
     name: Joi.string().min(3).max(55).required(),
     address: Joi.string().min(10).max(255).required(),
     phoneNumber: Joi.string()
-      .min(10)
-      .max(10)
-      .pattern(new RegExp("/^[0-9]+$/"))
-      .message("Phone number must be just numbers between 0_9"),
-    isPharamcy: Joi.boolean().required(),
+      .length(10)
+      .pattern(/^[0-9]+$/),
+    isPharmacy: Joi.boolean().required(),
   });
 
   const { error } = schema.validate(body);

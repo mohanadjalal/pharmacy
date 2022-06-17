@@ -24,6 +24,9 @@ const Customer = sequelize.define(
     password: {
       type: Sequelize.STRING,
     },
+    isPharmacy: {
+      type: Sequelize.BOOLEAN,
+    },
   },
   {
     freezeTableName: true,

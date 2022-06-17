@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-exports.checkFindPharmacy = () => {
+exports.checkFindUser = () => {
   const schema = Joi.object({
     name: Joi.string().min(3).max(55).required(),
   });
@@ -9,7 +9,7 @@ exports.checkFindPharmacy = () => {
   return error ? error.details[0].message : null;
 };
 
-exports.checkUpdatePharmacy = (body) => {
+exports.checkUpdateUser = (body) => {
   const schema = Joi.object({
     email: Joi.string().email(),
     password: Joi.string().min(8),

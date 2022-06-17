@@ -11,14 +11,11 @@ const Customer = models.customer;
 exports.signup = async (req, res) => {
   const error = authValidator.checkSingup(req.body);
   if (error) return res.status(400).send(error);
-  let user = {
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8),
-  };
-
+  req.body.password = bcrypt.hashSync(req.body.password, 8);
   try {
-    if (req.body.isPharmacy) user = await Pharmacy.create(user);
-    else user = await Customer.create(user);
+    let user;
+    if (req.body.isPharmacy) user = await Pharmacy.create(req.body);
+    else user = await Customer.create(req.body);
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send({ message: err });
@@ -31,18 +28,20 @@ exports.signin = async (req, res) => {
   try {
     if (req.body.isPharmacy)
       user = await Pharmacy.findAll({
-        attributes: ["id", "email", "password"],
+        attributes: ["id", "email", "name", "password"],
         where: { email: req.body.email },
       });
     else
       user = await Customer.findAll({
-        attributes: ["id", "email", "password"],
+        attributes: ["id", "email", "name", "password"],
         where: { email: req.body.email },
       });
 
-    user = user[0].dataValues;
-    if (!user) return res.status(404).send({ message: "user not found!!" });
+    if (!user.length)
+      return res.status(404).send({ message: "user not found!!" });
 
+    user = user[0].dataValues;
+    console.log("used", user);
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
       user.password
@@ -54,9 +53,13 @@ exports.signin = async (req, res) => {
         message: "Invalid Password!",
       });
     }
-    const token = jwt.sign({ id: user.id }, config.secret, {
-      expiresIn: 86400,
-    });
+    const token = jwt.sign(
+      { id: user.id, isPharmacy: req.body.isPharmacy },
+      config.secret,
+      {
+        expiresIn: 864000,
+      }
+    );
     user.accessToken = token;
     return res.status(200).send(user);
   } catch (err) {
