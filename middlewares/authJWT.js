@@ -11,7 +11,6 @@ exports.verifyToken = (req, res, next) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized!" });
     }
-    console.log(decoded.isPharmacy, "decoded");
     req.userId = decoded.id;
     req.isPharmacy = decoded.isPharmacy;
     next();

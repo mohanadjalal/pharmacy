@@ -13,7 +13,6 @@ const {
 // Retrieve all
 exports.findAll = async (req, res) => {
   try {
-    console.log(req.isPharmacy);
     const users = req.isPharmacy
       ? await Pharmacy.findAll()
       : await Customer.findAll();

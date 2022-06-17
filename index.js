@@ -4,6 +4,7 @@ const cors = require("cors");
 const models = require("./models");
 const auth = require("./routers/auth.route");
 const user = require("./routers/user.route");
+const cart = require("./routers/cart.route");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", auth);
 app.use("/api/user", user);
+app.use("/api/cart", cart);
 
 models.sequelize.sync({ force: false }).then(function () {
   console.log("Database Configured");

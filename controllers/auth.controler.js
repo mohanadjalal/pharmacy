@@ -3,14 +3,11 @@ const jwt = require("jsonwebtoken");
 
 const models = require("../models");
 const config = require("../config/auth.config");
-const authValidator = require("../validators/authValidator");
 
 const Pharmacy = models.pharmacy;
 const Customer = models.customer;
 
 exports.signup = async (req, res) => {
-  const error = authValidator.checkSingup(req.body);
-  if (error) return res.status(400).send(error);
   req.body.password = bcrypt.hashSync(req.body.password, 8);
   try {
     let user;
@@ -41,7 +38,6 @@ exports.signin = async (req, res) => {
       return res.status(404).send({ message: "user not found!!" });
 
     user = user[0].dataValues;
-    console.log("used", user);
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
       user.password
