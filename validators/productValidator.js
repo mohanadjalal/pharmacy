@@ -13,3 +13,17 @@ exports.checkCreateProduct = (body) => {
   const { error } = schema.validate(body);
   return error ? error.details[0].message : null;
 };
+
+exports.checkUpdateProduct = (body) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(255),
+    price: Joi.number().min(0),
+    description: Joi.string(),
+    side_effect: Joi.string(),
+    quantity: Joi.number().precision(0),
+    made_for: Joi.string(),
+  });
+
+  const { error } = schema.validate(body);
+  return error ? error.details[0].message : null;
+};

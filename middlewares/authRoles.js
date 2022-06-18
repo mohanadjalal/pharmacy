@@ -1,4 +1,7 @@
-const { checkCreateProduct } = require("../validators/productValidator");
+const {
+  checkCreateProduct,
+  checkUpdateProduct,
+} = require("../validators/productValidator");
 
 exports.isCustomer = (req, res, next) => {
   if (req.isPharmacy)
@@ -10,11 +13,16 @@ exports.isCustomer = (req, res, next) => {
 };
 
 exports.isPharmacy = (req, res, next) => {
+  const validator = {
+    POST: checkCreateProduct,
+    PUT: checkUpdateProduct,
+  };
   if (!req.isPharmacy)
     return res
       .status(403)
       .json({ message: "you does not have access rights to the content" });
-  const error = checkCreateProduct(req.body);
+
+  const error = validator[req.method]();
   if (error) return res.status(400).json({ error: error });
   next();
 };

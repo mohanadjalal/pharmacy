@@ -6,10 +6,26 @@ const Product = models.product;
 exports.create = async (req, res) => {
   try {
     let product = req.body;
-    product.img = `/${req.file.filename}`;
-    if (req.file) product.pharmacy_id = req.userId;
-    product = await Product.create(req.body);
+    product.pharmacy_id = req.userId;
+    if (req.file) product.img = `/${req.file.filename}`;
+    product = await Product.create(product);
     return res.status(201).send(product);
+  } catch (err) {
+    logErr(res, err);
+  }
+};
+
+exports.update = async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  try {
+    const id = parseInt(req.params.id);
+    if (req.file) req.body.img = `/${req.file.filename}`;
+    let product = await Product.update(req.body, { where: { id: `${id}` } });
+    if (!product[0])
+      return res.status(404).json({ error: "product isnt found " });
+    product = await Product.findByPk(id);
+    return res.status(200).json(product);
   } catch (err) {
     logErr(res, err);
   }

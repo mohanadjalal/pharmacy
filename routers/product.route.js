@@ -12,4 +12,10 @@ router.post(
   controler.create
 );
 
+router.put(
+  "/:id",
+  [mw.verifyToken, mw.isPharmacy, upload.single("img")],
+  controler.update
+);
+
 module.exports = router;
