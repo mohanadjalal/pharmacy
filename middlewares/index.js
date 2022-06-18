@@ -1,10 +1,11 @@
 const { verifyToken } = require("./authJWT");
-const { isCustomer } = require("./authRoles");
+const { isCustomer, isPharmacy } = require("./authRoles");
 const { checkDoublecateEmail } = require("./CheckDoublecateEmail");
 
 const mw = {
   verifyToken,
   isCustomer,
-  checkDoublecateEmail
+  checkDoublecateEmail,
+  isPharmacy,
 };
 module.exports = mw;

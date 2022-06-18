@@ -18,6 +18,15 @@ const Product = sequelize.define(
     description: {
       type: Sequelize.STRING,
     },
+    side_effect: {
+      type: Sequelize.STRING,
+    },
+    quantity: {
+      type: Sequelize.INTEGER,
+    },
+    made_for: {
+      type: Sequelize.STRING,
+    },
     img: {
       type: Sequelize.STRING,
     },

@@ -4,10 +4,10 @@ const cors = require("cors");
 const models = require("./models");
 const auth = require("./routers/auth.route");
 const user = require("./routers/user.route");
-const cart = require("./routers/cart.route");
+const product = require("./routers/product.route");
 
 const app = express();
-
+//------------------------middleware-------------------
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Headers",
@@ -17,13 +17,14 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.json());
+app.use(express.static("public"));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", auth);
 app.use("/api/user", user);
-app.use("/api/cart", cart);
-
+app.use("/api/product", product);
+//-----------------------------------------------------------
 models.sequelize.sync({ force: false }).then(function () {
   console.log("Database Configured");
 });
