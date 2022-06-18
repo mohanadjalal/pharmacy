@@ -18,4 +18,6 @@ router.put(
   controler.update
 );
 
+router.delete("/:id", [mw.verifyToken, mw.isPharmacy], controler.delete);
+
 module.exports = router;

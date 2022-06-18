@@ -16,6 +16,9 @@ exports.isPharmacy = (req, res, next) => {
   const validator = {
     POST: checkCreateProduct,
     PUT: checkUpdateProduct,
+    DELETE: () => {
+      return null;
+    },
   };
   if (!req.isPharmacy)
     return res

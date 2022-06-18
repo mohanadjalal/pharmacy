@@ -30,3 +30,16 @@ exports.update = async (req, res) => {
     logErr(res, err);
   }
 };
+
+exports.delete = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const product = await Product.findByPk(id);
+
+    if (!product) return res.status(404).json({ error: "product not found" });
+    await Product.destroy({ where: { id: `${id}` } });
+    return res.status(200).send(product);
+  } catch (err) {
+    logErr(res, err);
+  }
+};
