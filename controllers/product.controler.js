@@ -1,7 +1,9 @@
 const models = require("../models");
 const { logErr } = require("../helpers/loggers");
+const { cart, product } = require("../models");
 
 const Product = models.product;
+const Cart = models.cart;
 
 exports.create = async (req, res) => {
   try {
@@ -43,3 +45,4 @@ exports.delete = async (req, res) => {
     logErr(res, err);
   }
 };
+

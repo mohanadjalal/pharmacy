@@ -25,7 +25,7 @@ exports.isPharmacy = (req, res, next) => {
       .status(403)
       .json({ message: "you does not have access rights to the content" });
 
-  const error = validator[req.method]();
+  const error = validator[req.method](req.body);
   if (error) return res.status(400).json({ error: error });
   next();
 };

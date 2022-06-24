@@ -6,13 +6,17 @@ const config = require("../config/auth.config");
 
 const Pharmacy = models.pharmacy;
 const Customer = models.customer;
+const Cart = models.cart;
 
 exports.signup = async (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, 8);
   try {
     let user;
     if (req.body.isPharmacy) user = await Pharmacy.create(req.body);
-    else user = await Customer.create(req.body);
+    else {
+      user = await Customer.create(req.body);
+      await Cart.create({ customer_id: user.id });
+    }
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send({ message: err });

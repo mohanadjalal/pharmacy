@@ -2,30 +2,36 @@ const models = require("../models");
 const { logErr } = require("../helpers/loggers");
 
 const Cart = models.cart;
-
-exports.create = async (req, res) => {
+const Product = models.product;
+exports.addToCart = async (req, res) => {
   try {
-    let cart = await Cart.findOne({ where: { customer_id: req.userId } });
-    if (cart) return 0;
-
-    cart = await Cart.create({ customer_id: req.userId });
-    return res.status(200).send(cart);
+    const { pId } = req.params;
+    const product = await Product.findByPk(pId);
+    const cart = await Cart.findOne({ where: { customer_id: req.userId } });
+    const r = await cart.addProduct(product);
+    res.status(204).send({ message: "product added to cart successfuly" });
   } catch (err) {
     logErr(res, err);
   }
 };
 
-exports.delete = async (req, res) => {
+exports.removeFromCart = async (req, res) => {
   try {
-    let cart = await Cart.findOne({ where: { customer_id: req.userId } });
-    if (!cart)
-      return res.status(404).send({
-        message: `there is no cart   `,
-      });
+    const { pId } = req.params;
+    const product = await Product.findByPk(pId);
+    const cart = await Cart.findOne({ where: { customer_id: req.userId } });
+    const r = await cart.removeProduct(product);
+    res.status(204).send({ message: "product removed to cart successfuly" });
+  } catch (err) {
+    logErr(res, err);
+  }
+};
 
-    await Pharmacy.destroy({ where: { customer_id: req.userId } });
-
-    return res.status(200).send(user);
+exports.getCartProduct = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ where: { customer_id: req.userId } });
+    const products = await cart.getProducts();
+    res.status(200).send(products);
   } catch (err) {
     logErr(res, err);
   }
