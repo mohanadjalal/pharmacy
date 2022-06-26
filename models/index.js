@@ -29,6 +29,15 @@ Product.belongsToMany(Cart, { through: "Cart_Product" });
 Delivery.belongsToMany(Product, { through: "Delivery_Product" });
 Product.belongsToMany(Delivery, { through: "Delivery_Product" });
 
+Customer.hasOne(Delivery, {
+  foreignKey: { name: "customer_id", allowNull: false },
+  onDelete: "CASCADE",
+});
+Delivery.belongsTo(Customer, {
+  foreignKey: { name: "customer_id", allowNull: false },
+  onDelete: "CASCADE",
+});
+
 const models = {};
 models.pharmacy = Pharmacy;
 models.product = Product;

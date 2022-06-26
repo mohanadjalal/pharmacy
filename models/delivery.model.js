@@ -9,15 +9,6 @@ const Delivery = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    from: {
-      type: Sequelize.STRING,
-    },
-    to: {
-      type: Sequelize.STRING,
-    },
-    date: {
-      type: Sequelize.DATE,
-    },
   },
   {
     freezeTableName: true,

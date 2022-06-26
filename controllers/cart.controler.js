@@ -31,7 +31,8 @@ exports.getCartProduct = async (req, res) => {
   try {
     const cart = await Cart.findOne({ where: { customer_id: req.userId } });
     const products = await cart.getProducts();
-    res.status(200).send(products);
+
+    return res.status(200).send(products);
   } catch (err) {
     logErr(res, err);
   }

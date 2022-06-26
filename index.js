@@ -6,6 +6,7 @@ const auth = require("./routers/auth.route");
 const user = require("./routers/user.route");
 const product = require("./routers/product.route");
 const cart = require("./routers/cart.route");
+const delivery = require("./routers/delivery.route");
 
 const app = express();
 //------------------------middleware-------------------
@@ -26,6 +27,7 @@ app.use("/api/auth", auth);
 app.use("/api/user", user);
 app.use("/api/product", product);
 app.use("/api/cart", cart);
+app.use("/api/delivery", delivery);
 
 //-----------------------------------------------------------
 models.sequelize.sync({ force: false }).then(function () {
