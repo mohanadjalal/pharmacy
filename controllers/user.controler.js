@@ -11,17 +11,27 @@ const {
 } = require("../validators/userValidator");
 
 // Retrieve all
-exports.findAll = async (req, res) => {
+exports.findAllPharmacy = async (req, res) => {
   try {
-    const users = req.isPharmacy
-      ? await Pharmacy.findAll()
-      : await Customer.findAll();
-    if (users.length) return res.status(200).send(users);
+    const pharmacy = await Pharmacy.findAll();
+
+    if (pharmacy.length) return res.status(200).send(pharmacy);
     else
       return res.status(404).send({
-        message: `ther is no ${
-          req.isPharmacy ? "Pharmacies" : "Customers"
-        } on db :)`,
+        message: `ther is no Pharmacies on db :)`,
+      });
+  } catch (err) {
+    logErr(res, err);
+  }
+};
+exports.findAllCustomer = async (req, res) => {
+  try {
+    const pharmacy = await Customer.findAll();
+
+    if (pharmacy.length) return res.status(200).send(pharmacy);
+    else
+      return res.status(404).send({
+        message: `ther is no Csutomers on db :)`,
       });
   } catch (err) {
     logErr(res, err);
@@ -31,15 +41,11 @@ exports.findAll = async (req, res) => {
 exports.findByName = async (req, res) => {
   try {
     const { name } = req.params;
-    const users = req.isPharmacy
-      ? await Pharmacy.findAll()
-      : await Customer.findAll({ where: { name: name } });
-    if (users.length) return res.status(200).send(users);
+    const pharmacy = await Pharmacy.findAll({ where: { name: name } });
+    if (pharmacy.length) return res.status(200).send(pharmacy);
     else
       return res.status(404).send({
-        message: `ther is no ${
-          req.isPharmacy ? "Pharmacies" : "Customers"
-        } on db :)`,
+        message: `ther is no Pharmacies on db :)`,
       });
   } catch (err) {
     logErr(res, err);

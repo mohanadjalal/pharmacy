@@ -25,19 +25,26 @@ return user json
 
 ---
 
-# GET /user
+# GET /user/Pharmacy
 
 headers: {
 x-access-token :jwt
 }
 list of user
 
+# GET /user/customer
+
+headers: {
+x-access-token :jwt
+}
+list of customer
+
 # GET /user/:name
 
 headers: {
 x-access-token :jwt
 }
-return user
+return pharmacy with name
 
 # PUT /user/:id
 
