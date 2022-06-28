@@ -6,6 +6,7 @@ const mw = require("../middlewares");
 
 const { storage } = require("../config/multer.condig");
 const upload = multer({ storage });
+router.get("/", [mw.verifyToken], controler.getProducts);
 router.post(
   "/",
   [mw.verifyToken, mw.isPharmacy, upload.single("img")],
@@ -19,7 +20,5 @@ router.put(
 );
 
 router.delete("/:id", [mw.verifyToken, mw.isPharmacy], controler.delete);
-
- 
 
 module.exports = router;

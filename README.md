@@ -39,27 +39,51 @@ x-access-token :jwt
 }
 return user
 
-# PUT /user/:id edit user info
+# PUT /user/:id
+
+edit user info
 
 headers: {
 x-access-token :jwt
 }
 return user
 
-# DELETE /user/:id =>delete user account
+# DELETE /user/:id
 
-# POST /product=> add product jsut for pharmacy
+=>delete user account
 
-# PUT /product =>eddit product info
+# POST /product
 
-# DELETE /product/:id =>delete product
+add product jsut for pharmacy
 
-# GET /cart =>retrive =>the product in customer cart
+# GET /product
 
-# PUT /cart/:pId =>add product to cart
+=> return all product in db
 
-# DELETE /cart/:pId =>remove product from cart
+# PUT /product
 
-# GET /delivery =>return move product from cart to delivery
+=>eddit product info
 
-# GET /delivery/info =>return delivery info
+# DELETE /product/:id
+
+=>delete product
+
+# GET /cart
+
+=>retrive =>the product in customer cart
+
+# PUT /cart/:pId
+
+=>add product to cart
+
+# DELETE /cart/:pId
+
+=>remove product from cart
+
+# GET /delivery
+
+=>return move product from cart to delivery
+
+# GET /delivery/info
+
+=>return delivery info

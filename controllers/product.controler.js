@@ -17,6 +17,15 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.getProducts = async (req, res) => {
+  try {
+    const products = await Product.findAll();
+    return res.status(200).send(products);
+  } catch (err) {
+    logErr(res, err);
+  }
+};
+
 exports.update = async (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -45,4 +54,3 @@ exports.delete = async (req, res) => {
     logErr(res, err);
   }
 };
-
